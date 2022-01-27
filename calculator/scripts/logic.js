@@ -16,7 +16,7 @@ const priorityOperator = (operand) => {
     }
 
     else{
-        return 0;
+        return 0 ;
     }
 };
 

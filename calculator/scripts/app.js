@@ -1,53 +1,56 @@
-import { statementEvaluation } from "./logic.js";
+import { statementEvaluation  } from "./logic.js";
 
 window.addEventListener("load", bindEvents);
 
 function bindEvents() {
-    const calculate = document.querySelector('.btn.compute');
-    scam();
-    calculate.addEventListener('click', computeIt);
-}
+    const calculate = document.querySelector(".btn.compute");
+    const buttons = document.querySelectorAll(".btn");
+    let toDisplay = document.querySelector('.display');
 
-function validate(str){
-    if(str == '' || str == '+' || str == '-' || str == '*' || str == '/'){
-        return false;
+    const isACorCompute = (str) => {
+        return str === "AC" || str === "=";
+    };
+
+    const validate = (str) => {
+        if (str == "" || str == "+" || str == "-" || str == "*" || str == "/") {
+            return false;
+        }
+        return true;
+    };
+
+    const addToDisplay = (event) => {
+        if(!isACorCompute(event.target.value)){
+            toDisplay.value += event.target.value;
+        }
+
+        if(event.target.value === 'AC'){
+            toDisplay.value = '';
+        }
     }
 
-    return true;
-}
+    const computeIt = () => {
+        if(!validate(toDisplay.value)){
+            return alert('Invalid Expression');
+        }
 
-function isNumber(str){
-    return !isNaN(str) || str === '.';
-}
+        let ans = statementEvaluation(toDisplay.value);
 
-function scam(){  
-    let input = document.querySelector('.display');
-    let buttons = document.querySelectorAll('.btn');
+        if(ans === NaN){
+            return 'Invalid Expression';
+        }
 
+        if(typeof ans === String){
+            alert(ans);
+            toDisplay.value = '';
+            return;
+        }
+
+        toDisplay.value = '';
+        toDisplay.value = ans;
+    }
+    
     for(let button of buttons){
-        button.addEventListener('click', () => {
-            if(isNumber(button.value)){
-                input.value += button.value;
-                console.log(button.value);
-            }
-           
-        });
+        button.addEventListener('click', addToDisplay);
     }
-}
-
-function computeIt () {
-    let input= document.querySelector('.display');
-
-    if(!validate(input.value)){
-        return alert('Invalid Expression');
-    }
-
-    let ans = statementEvaluation(input.value);
-
-    if(ans === NaN){
-        return 'Invalid Expression';
-    }
-
-    input.value = '';
-    input.value = ans;
+    calculate.addEventListener("click", computeIt);
 };
