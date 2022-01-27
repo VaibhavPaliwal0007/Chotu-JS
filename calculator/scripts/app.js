@@ -128,9 +128,10 @@ const statementEvaluation = (str) => {
 
        else if(char === '(' || char === ')'){
             let ans  = checkParanteheses(str, idx);
-
+            
             idx += (str.indexOf(')') - idx);
             numberStack.push(ans);
+            check = false;
        }
 
        else {
@@ -154,7 +155,7 @@ const statementEvaluation = (str) => {
     return numberStack[0];
 };
 
-let str = "(2+3)";
+let str = "8 + 29 * 2";
 
 console.log(statementEvaluation(str));
 
