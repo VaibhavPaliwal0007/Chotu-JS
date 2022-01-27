@@ -1,161 +1,53 @@
-const priorityOperator = (operand) => {
-    if(operand === '/'){
-        return 4;
+import { statementEvaluation } from "./logic.js";
+
+window.addEventListener("load", bindEvents);
+
+function bindEvents() {
+    const calculate = document.querySelector('.btn.compute');
+    scam();
+    calculate.addEventListener('click', computeIt);
+}
+
+function validate(str){
+    if(str == '' || str == '+' || str == '-' || str == '*' || str == '/'){
+        return false;
     }
 
-    else if(operand === '*'){
-        return 3;
-    }
+    return true;
+}
 
-    else if(operand === '+'){
-        return 2;
-    }
+function isNumber(str){
+    return !isNaN(str) || str === '.';
+}
 
-    else if(operand === '-'){
-        return 1;
-    }
+function scam(){  
+    let input = document.querySelector('.display');
+    let buttons = document.querySelectorAll('.btn');
 
-    else{
-        return 0;
-    }
-};
-
-const percentageOperator = (firstOperand, secondOperand) => {
-    if(firstOperand.toString().includes("%")){
-        firstOperand = firstOperand.replace("%", "");
-        firstOperand = (parseFloat(firstOperand) / 100) * secondOperand;
-    }
-
-    else if(secondOperand.toString().includes("%")){
-        secondOperand = secondOperand.replace("%", "");
-        secondOperand = (parseFloat(secondOperand) / 100) * firstOperand;
-    }
-
-    firstOperand = parseFloat(firstOperand);
-    secondOperand = parseFloat(secondOperand);
-
-    return { firstOperand, secondOperand };
-};
-
-const checkParanteheses = (str, idx) => {
-    if(str[idx] === '('){
-        let count = -1, i = idx
-
-        while(i !== str.length && str[i] !== ')'){
-            count++;
-            i++;
-        }
-    
-        str = str.substr(idx + 1, count);
-
-        const ans = statementEvaluation(str);
-
-        return ans;
-    }
-
-    else if(str[idx] === ')'){
-        if(!str.includes('(')){
-            return 'Invalid Expression. Missing opening parantheses';
-        }
-    }
-};
-
-const compute = (firstNumber, secondNumber, topOperator) => {
-    const { firstOperand, secondOperand } = percentageOperator(firstNumber, secondNumber);
-    
-    if(topOperator === '+'){
-        return firstOperand + secondOperand;
-    }
-
-    else if(topOperator === '-'){
-        return firstOperand - secondOperand;
-    }
-
-    else if(topOperator === '*'){
-        return firstOperand * secondOperand;
-    }
-
-    else if(topOperator === '/'){
-        return firstOperand / secondOperand;
-    }
-};
-
-const removeWhiteSpace = (str) => {
-    return str.replace(/\s/g, '');
-};
-
-const statementEvaluation = (str) => {
-    const numberStack = [];
-    const operatorStack = [];
-    let check = false;
-    let num = "";
-
-    str = removeWhiteSpace(str);
-
-    for(let idx = 0; idx < str.length; idx++){
-       let char = str[idx];
-
-       if(char === '+' || char === '-' || char === '/' || char === '*'){
-           const topOperator = operatorStack[operatorStack.length - 1];
-
-           numberStack.push(num);
-           num = "";
-
-           if(check){
-               return 'Inner statement error';
-           }
+    for(let button of buttons){
+        button.addEventListener('click', () => {
+            if(isNumber(button.value)){
+                input.value += button.value;
+                console.log(button.value);
+            }
            
-           if(topOperator === undefined && numberStack.length === 0){
-               return 'Invalid Expression';
-           }
-
-           else if(priorityOperator(topOperator) <= priorityOperator(char)){
-               operatorStack.push(char);
-           }
-
-           else{
-               const firstOperand = numberStack.pop();
-               const secondOperand = numberStack.pop();
-               const result = compute(firstOperand, secondOperand, topOperator);
-
-               numberStack.push(result);
-               operatorStack.pop();
-               operatorStack.push(char);
-           }
-
-           check = true;
-       }
-
-       else if(char === '(' || char === ')'){
-            let ans  = checkParanteheses(str, idx);
-            
-            idx += (str.indexOf(')') - idx);
-            numberStack.push(ans);
-            check = false;
-       }
-
-       else {
-           num += char;
-           check = false;
-       }
+        });
     }
-    
-    numberStack.push(num);
+}
 
-    while(numberStack.length !== 1 && operatorStack.length !== 0)
-    {
-        const topOperator = operatorStack.pop();
-        const firstOperand = numberStack.pop();
-        const secondOperand = numberStack.pop();
-        const result = compute(secondOperand, firstOperand, topOperator);
+function computeIt () {
+    let input= document.querySelector('.display');
 
-        numberStack.push(result);
+    if(!validate(input.value)){
+        return alert('Invalid Expression');
     }
 
-    return numberStack[0];
+    let ans = statementEvaluation(input.value);
+
+    if(ans === NaN){
+        return 'Invalid Expression';
+    }
+
+    input.value = '';
+    input.value = ans;
 };
-
-let str = "8 + 29 * 2";
-
-console.log(statementEvaluation(str));
-
