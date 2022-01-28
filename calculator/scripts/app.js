@@ -1,4 +1,4 @@
-import { statementEvaluation  } from "./logic.js";
+import { evalutateExpression  } from "./logic.js";
 
 window.addEventListener("load", bindEvents);
 
@@ -33,7 +33,7 @@ function bindEvents() {
             return alert('Invalid Expression');
         }
 
-        let ans = statementEvaluation(toDisplay.value);
+        let ans = evalutateExpression(toDisplay.value);
 
         if(ans === NaN){
             return 'Invalid Expression';

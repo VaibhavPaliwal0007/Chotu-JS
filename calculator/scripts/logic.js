@@ -1,152 +1,95 @@
-const priorityOperator = (operand) => {
-    if(operand === '/'){
-        return 4;
-    }
+ export const evalutateExpression = (str) => {
+    let idx = 0;
 
-    else if(operand === '*'){
-        return 3;
-    }
-
-    else if(operand === '+' || operand === '-'){
-        return 2;
-    }
-
-    else{
-        return 0 ;
-    }
-};
-
-const percentageOperator = (firstOperand, secondOperand) => {
-    if(firstOperand.toString().includes("%")){
-        firstOperand = firstOperand.replace("%", "");
-        firstOperand = (parseFloat(firstOperand) / 100) * secondOperand;
-    }
-
-    else if(secondOperand.toString().includes("%")){
-        secondOperand = secondOperand.replace("%", "");
-        secondOperand = (parseFloat(secondOperand) / 100) * firstOperand;
-    }
-
-    firstOperand = parseFloat(firstOperand);
-    secondOperand = parseFloat(secondOperand);
-
-    return { firstOperand, secondOperand };
-};
-
-const checkParanteheses = (str, idx) => {
-    if(str[idx] === '('){
-        let count = -1, i = idx
-
-        while(i !== str.length && str[i] !== ')'){
-            count++;
-            i++;
-        }
-    
-        str = str.substr(idx + 1, count);
-
-        const ans = statementEvaluation(str);
-
-        return ans;
-    }
-
-    else if(str[idx] === ')'){
-        if(!str.includes('(')){
-            return 'Invalid Expression. Missing opening parantheses';
-        }
-    }
-};
-
-const compute = (firstNumber, secondNumber, topOperator) => {
-    const { firstOperand, secondOperand } = percentageOperator(firstNumber, secondNumber);
-    
-    if(topOperator === '+'){
-        return firstOperand + secondOperand;
-    }
-
-    else if(topOperator === '-'){
-        return firstOperand - secondOperand;
-    }
-
-    else if(topOperator === '*'){
-        return firstOperand * secondOperand;
-    }
-
-    else if(topOperator === '/'){
-        return firstOperand / secondOperand;
-    }
-};
-
-const removeWhiteSpace = (str) => {
-    return str.replace(/\s/g, '');
-};
-
-export const statementEvaluation = (str) => {
-    const numberStack = [];
-    const operatorStack = [];
-    let check = false;
-    let num = "";
+    const removeWhiteSpace = (str) => {
+        return str.replace(/\s/g, '');
+    };
 
     str = removeWhiteSpace(str);
 
-    for(let idx = 0; idx < str.length; idx++){
-       let char = str[idx];
-
-       if(char === '+' || char === '-' || char === '/' || char === '*'){
-           const topOperator = operatorStack[operatorStack.length - 1];
-
-           numberStack.push(num);
-           num = "";
-
-           if(check){
-               return 'Inner statement error';
-           }
-           
-           if(topOperator === undefined && numberStack.length === 0){
-               return 'Invalid Expression';
-           }
-
-           else if(priorityOperator(topOperator) <= priorityOperator(char)){
-               operatorStack.push(char);
-           }
-
-           else{
-               const firstOperand = numberStack.pop();
-               const secondOperand = numberStack.pop();
-               const result = compute(firstOperand, secondOperand, topOperator);
-
-               numberStack.push(result);
-               operatorStack.pop();
-               operatorStack.push(char);
-           }
-
-           check = true;
-       }
-
-       else if(char === '(' || char === ')'){
-            let ans  = checkParanteheses(str, idx);
-            
-            idx += (str.indexOf(')') - idx);
-            numberStack.push(ans);
-            check = false;
-       }
-
-       else {
-           num += char;
-           check = false;
-       }
-    }
+    const percentageOperator = (currNum, numberStack) => {
+        currNum = currNum.toString();
+        
+        if(currNum.includes("%")){
+            currNum = currNum.replace("%", "");
+            currNum = (parseFloat(currNum) / 100);
+        }
     
-    numberStack.push(num);
+        currNum = parseFloat(currNum);
+      
+        return currNum;
+    };
+    
+    const insertElementInStack = (currNum, numberStack, operator) => {
+        currNum = percentageOperator(currNum);
+        
+        if(operator === '-'){
+            currNum *= -1;
+        }
+    
+        else if(operator === '*'){
+            currNum *= numberStack.pop();
+        }
+    
+        else if(operator === '/'){
+           currNum = numberStack.pop() / currNum;
+        }
+    
+        numberStack.push(currNum);
+    };
+    
+    const isOperator = (c) => c === '+' || c === '-' || c === '*' || c === '/';
+    const isDigit = (c) => (c >= '0' && c <= '9') || c === '.' || c === '%';
+    
+    const compute = (numberStack) => {
+        let ans = 0;
+    
+        for(let number of numberStack){
+            ans += number;
+        }
+    
+        return ans;
+    };
+    
+    const calculate = () => {
+        let operator = '+';
+        let numberStack = [];
+        
+        while(idx < str.length)
+        {
+            if(isOperator(str[idx])){
+                operator = str[idx];
+            }
+    
+            else if(str[idx] === '('){
+                idx++;
+                let currNum = calculate(str);
+                insertElementInStack(currNum, numberStack, operator);
+            }
+    
+            else if(str[idx] === ')'){
+                break;
+            }
+    
+            else{
+                let currNum1 = "";
+    
+                while(idx < str.length && isDigit(str[idx])){
+                    currNum1 += str[idx];
+                    idx++;
+                }
+    
+                idx--;
+                insertElementInStack(currNum1, numberStack, operator);
+            }
+    
+            idx++;
+        }
+    
+        return compute(numberStack);
+    };
 
-    while(numberStack.length !== 1 && operatorStack.length !== 0)
-    {
-        const topOperator = operatorStack.pop();
-        const firstOperand = numberStack.pop();
-        const secondOperand = numberStack.pop();
-        const result = compute(secondOperand, firstOperand, topOperator);
-
-        numberStack.push(result);
-    }
-
-    return numberStack[0];
+    return calculate();
 };
+
+console.log(evalutateExpression('50 + 65%'));
