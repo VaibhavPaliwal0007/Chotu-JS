@@ -1,24 +1,32 @@
-const allowances = {
+export const allowances = {
   basicSalary: 0,
-  hra: function hra() {
+
+  hra() {
     return this.basicSalary * 0.5;
   },
-  da: function da() {
+
+  da() {
     return this.basicSalary * 0.2;
   },
-  ta: function ta() {
+
+  ta() {
     return this.basicSalary * 0.3;
   },
-  ma: function ma() {
+
+  ma() {
     return this.basicSalary * 0.15;
   },
-  pf: function pf() {
+
+  pf() {
     return this.basicSalary * 0.05;
   },
-  gs: function gs() {
+
+  gs() {
     return this.basicSalary + this.hra() + this.da() + this.ma();
   },
-  ns: function ns() {
+
+  ns() {
     return this.gs() - this.pf();
   },
+  
 };

@@ -1,3 +1,5 @@
+import { allowances } from './model.js';
+
 window.addEventListener("load", bindEvents);
 
 function bindEvents() {
@@ -10,7 +12,7 @@ function validate(basicSalary) {
         return true;
     }
 
-    if (isNaN(basicSalary)) {
+    else if (isNaN(basicSalary)) {
         alert("Please enter a valid number");
         return true;
     }

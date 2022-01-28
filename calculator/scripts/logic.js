@@ -7,12 +7,8 @@ const priorityOperator = (operand) => {
         return 3;
     }
 
-    else if(operand === '+'){
+    else if(operand === '+' || operand === '-'){
         return 2;
-    }
-
-    else if(operand === '-'){
-        return 1;
     }
 
     else{
