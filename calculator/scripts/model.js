@@ -12,7 +12,7 @@
         
         if(currNum.includes("%")){
             currNum = currNum.replace("%", "");
-            currNum = (parseFloat(currNum) / 100);
+            currNum = (parseFloat(currNum) / 100) * parseFloat(numberStack.length === 0 ? 1 : numberStack[numberStack.length - 1]);
         }
     
         currNum = parseFloat(currNum);
@@ -21,7 +21,7 @@
     };
     
     const insertElementInStack = (currNum, numberStack, operator) => {
-        currNum = percentageOperator(currNum);
+        currNum = percentageOperator(currNum, numberStack);
         
         if(operator === '-'){
             currNum *= -1;

@@ -1,4 +1,4 @@
-import { evalutateExpression  } from "./logic.js";
+import { evalutateExpression  } from "./model.js";
 
 window.addEventListener("load", bindEvents);
 
@@ -12,7 +12,7 @@ function bindEvents() {
     };
 
     const validate = (str) => {
-        if (str == "" || str == "+" || str == "-" || str == "*" || str == "/") {
+        if (str == "" || str == "+" || str == "-" || str == "*" || str == "/" || str == "%") {
             return false;
         }
         return true;
