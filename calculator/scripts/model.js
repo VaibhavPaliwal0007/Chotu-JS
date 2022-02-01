@@ -91,5 +91,3 @@
 
     return calculate();
 };
-
-console.log(evalutateExpression('50 + 65%'));
