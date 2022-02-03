@@ -1,0 +1,78 @@
+.flex {
+    display : flex;
+}
+
+.jcSpaceBetween {
+    justify-content: space-between;
+}
+
+.alCenter {
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+    margin: 28px;
+    color: blueviolet;
+}
+
+h2 {
+    color:#26a8d3;
+}
+
+h4 {
+    width: 50%;
+    line-height: 20px;
+    letter-spacing: 0.3px;
+}
+
+.width100 {
+    width:100%;
+}
+
+.marginCheck {
+    margin:16px;
+}
+
+.width50 {
+    width : 50%;
+}
+
+.width10 {
+    width:10%;
+}
+
+.width90 {
+    width: 85%;
+}
+
+.outerContainer {
+    padding-bottom: 35px;
+    margin: 0 20px 40px;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.inputContainer {
+    margin-left:12px;
+    padding: 10px 12px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.searchBtnContainer {
+    width: 100%;
+    height: 100%;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    letter-spacing: 0.4px;
+    cursor: pointer;
+}
+
+.center {
+    text-align: center;
+    margin-top:40px;
+}
+
+.inputContainer:focus {
+    outline: none;
+}
