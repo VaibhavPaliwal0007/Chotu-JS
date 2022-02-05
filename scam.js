@@ -1,57 +1,9 @@
-// function createSetIntervaluePolyfillTask() {
-//     let intervalueIdIncre = 0;
-//     const intervalueIdMap = {};
-
-//     function polyfilledSetIntervalue(callback, delay,...args) {
-//         const uniqueId = intervalueIdIncre++;
-
-//         function repeatThisFn() {
-//             intervalueIdMap[uniqueId] = setTimeoutfunction((){
-//                 callback(...args);
-
-//                 if(intervalueIdMap[uniqueId]) {
-//                     repeatThisFn();
-//                 }
-//             },delay);
-//         }
-
-//         repeatThisFn();
-
-//         return uniqueId;
-//     }
-
-//     function polyfilledClearIntervalue(uniqueId) {
-//         clearTimeout(intervalueIdMap[uniqueId]);
-
-//         delete intervalueIdMap[uniqueId];
-//     }
-
-//     return {
-//         polyfilledSetIntervalue,
-//         polyfilledClearIntervalue
-//     }
-// }
-
-// const { polyfilledSetIntervalue, polyfilledClearIntervalue } = createSetIntervaluePolyfillTask();
-
-// let counter = 0;
-
-// const uniqueId = polyfilledSetIntervaluefunction((){
-//     console.log("Hello World");
-
-//     counter++;
-
-//     if(counter > 4) {
-//         polyfilledClearIntervalue(uniqueId);
-//     }
-// },1000);
-
 // Function.prototype.myBind = function(...args){
 //     const myThis = this;
 //     const parameters = args.slice(1);
 
 //     return function(...fnArgs) {
-//         return myapply(args[0], [parameters], [fnArgs]);
+//         return myThis.apply(args[0], [parameters], [fnArgs]);
 //     }
 // };
 
@@ -64,15 +16,15 @@
 
 // console.log(boundFn());
 
-const data = {
-    a: 'jack',
-    b: {
-        c: 'sparrow',
-        d: {
-           e: 'hahaha'
-        }
-    }
-};
+// const data = {
+//     a: 'jack',
+//     b: {
+//         c: 'sparrow',
+//         d: {
+//            e: 'hahaha'
+//         }
+//     }
+// };
 
 //flatten this object into a single level object
 
@@ -96,37 +48,120 @@ const data = {
 
 // console.log(flatten(data));
 
- 
+// function calculator(value = 0)
+// {  
+//     let val = value;
 
-function calculator(value = 0)
-{  
-    val = value;
+//     this.add = (b) =>{
+//          val += b;
+//          return this;  //object return krara hu me 
+//     }
 
-    this.add = (b) =>{
-         val += b;
-         return this;
-    }
+//     this.sub = (b) => {
+//          val -= b;
+//          return this;
+//     }
 
-    this.sub = (b) => {
-         val -= b;
-         return this;
-    }
+//     this.mult = (b) => {
+//          val *= b;
+//          return this;
+//     }
 
-    this.mult = (b) => {
-         val *= b;
-         return this;
-    }
+//     this.divide = (b) => {
+//          val /= b;
+//          return this;
+//     }
 
-    this.divide = (b) => {
-         val /= b;
-         return this;
-    }
+//     this.result = () => {
+//         return val; 
+//     }
 
-    this.val = () => {
-        return val;
-    }
-}
-calculator(10).add(15).sub(10).mult(4).divide(10).val();
+//     return this;
+// }
+// console.log(calculator(10).add(15).sub(10).mult(4).divide(10).result());
 
+// function createSetIntervaluePolyfillTask(){
+//     let intervalId = 1;
+//     let mp = {};
+
+//     function mySetInterval(callback, ms, ...args){
+//         const uniqueId = intervalId++;
+
+//         function repeatFn(){
+//             mp[uniqueId] = setTimeout(() => {
+//                 callback(...args);
+
+//                 if(mp[uniqueId]){
+//                     repeatFn();
+//                 }
+//             }, ms);
+//         };
+
+//         repeatFn();
+//         return uniqueId;
+//     };
+
+//     function myClearInterval(uniqueId){
+//         clearTimeout(mp[uniqueId]);
+//         delete mp[uniqueId];
+//     }
+
+//     return { mySetInterval, myClearInterval };
+// };
+
+// const { mySetInterval, myClearInterval } = createSetIntervaluePolyfillTask();
+
+// mySetInterval(() => console.log('hello world'), 1000);
+
+// Object.prototype.myInstanceof = function(a, A){
+//      if(typeof a == 'function'){
+//          return 'Cannot obtain instance of a function';
+//      }
+
+//      let toCompare = Object.getPrototypeOf(a);
+
+//      while(toCompare != null)
+//      {
+//          if(toCompare.constructor == A){
+//              return true;
+//          }
+
+//          toCompare = Object.getPrototypeOf(toCompare);
+//      }
+
+//      return false;
+// };
+
+// const arr = [1, 2, 34];
+
+// console.log(Object.myInstanceof(arr, String));
+
+// function promisesAll(promisesArr){
+//     let arr = [];
+
+//     return new Promise(async (resolve, reject) => {
+//         for(let idx = 0; idx < promisesArr.length; idx++){
+//             try{
+//                 const result = await promisesArr[idx];
+//                 await arr.push(result);
+//             }
+
+//             catch(e){
+//                 reject(e);
+//             }
+//         }
+//         resolve(arr);
+//     })
+// };
+
+// const promise1 = Promise.resolve(3);
+// const promise2 = 42;
+// const promise3 = new Promise((resolve, reject) => {
+//   setTimeout(resolve, 10, 'foo');
+// });
+
+// promisesAll([promise1, promise2, promise3]).then((values) => {
+//     console.log(values);
+// });
 
 

@@ -11,7 +11,6 @@ function bindEvents(){
     }
 
     async function getData(){
-        //fetch user from github
         try{
             let input = document.querySelector('input').value;
 
