@@ -1,0 +1,32 @@
+.form{
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background: #f8f8f8;
+    display: flex;
+    flex-direction: column;
+}
+
+.game{
+    height: 90vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+
+.player{
+    font-size: 50px;
+    padding: 20px;
+}
+
+.square{
+    height: 140px;
+    width: 140px;
+    background-color: aquamarine;
+    font-size: 34px;
+    display: flex;
+}
+
