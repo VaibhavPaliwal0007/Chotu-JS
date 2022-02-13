@@ -26,7 +26,7 @@
 //     }
 // };
 
-//flatten this object into a single level object
+// flatten this object into a single level object
 
 // function flatten(data){
 //     const flattenedData = {};
@@ -49,12 +49,12 @@
 // console.log(flatten(data));
 
 // function calculator(value = 0)
-// {  
+// {
 //     let val = value;
 
 //     this.add = (b) =>{
 //          val += b;
-//          return this;  //object return krara hu me 
+//          return this;  //object return krara hu me
 //     }
 
 //     this.sub = (b) => {
@@ -73,7 +73,7 @@
 //     }
 
 //     this.result = () => {
-//         return val; 
+//         return val;
 //     }
 
 //     return this;
@@ -164,54 +164,107 @@
 //     console.log(values);
 // });
 
-function myDOM() {
-    this.elements = [];
-    
-    function Node(tagName){
-        this.tagName = tagName;
-        this.chidren = [];
-    }
+// function myDOM() {
+//     this.elements = [];
 
-    myDOM.prototype.createElement = (tagName) => {
-        this.elements.push(new Node(tagName));
-        return new Node(tagName);
-    }
+//     function Node(tagName){
+//         this.tagName = tagName;
+//         this.chidren = [];
+//     }
 
-    myDOM.prototype.querySelector = (selector) => {
-        if(selector.includes('#')){
-            const id = selector.split('#')[1];
-            return this.elements.find(element => element.id === id);
-        }
+//     myDOM.prototype.createElement = (tagName) => {
+//         this.elements.push(new Node(tagName));
+//         return new Node(tagName);
+//     }
 
-        else if(selector.includes('.')){
-            const className = selector.split('.')[1];
-            return this.elements.find(element => element.className === className);
-        }
-        
-        return this.elements.find(element => element.tagName === selector);
-    }
+//     myDOM.prototype.querySelector = (selector) => {
+//         if(selector.includes('#')){
+//             const id = selector.split('#')[1];
+//             return this.elements.find(element => element.id === id);
+//         }
 
-    Node.prototype.appendChild = (child) => {
-       if(!(child instanceof Node)){
-            throw new Error('Child must be an instance of Node');
-       }
+//         else if(selector.includes('.')){
+//             const className = selector.split('.')[1];
+//             return this.elements.find(element => element.className === className);
+//         }
 
-        this.chidren.push(child);
-    }
+//         return this.elements.find(element => element.tagName === selector);
+//     }
 
-    Node.prototype.removeChild = (child) => {
-        this.chidren = this.chidren.filter(element => element !== child);
-    }
+//     Node.prototype.appendChild = (child) => {
+//        if(!(child instanceof Node)){
+//             throw new Error('Child must be an instance of Node');
+//        }
 
-    Node.prototype.getElementById = (id) => {
-        return this.chidren.find(element => element.id === id);
-    }
+//         this.chidren.push(child);
+//     }
 
-    Node.prototype.getElementsByTagName = (tagName) => {
-        return this.chidren.filter(element => element.tagName === tagName);
-    }
+//     Node.prototype.removeChild = (child) => {
+//         this.chidren = this.chidren.filter(element => element !== child);
+//     }
 
-    Node.prototype.innerHTML = (html) => {
-        this.html = html;
-    }
-};
+//     Node.prototype.getElementById = (id) => {
+//         return this.chidren.find(element => element.id === id);
+//     }
+
+//     Node.prototype.getElementsByTagName = (tagName) => {
+//         return this.chidren.filter(element => element.tagName === tagName);
+//     }
+
+//     Node.prototype.innerHTML = (html) => {
+//         this.html = html;
+//     }
+// };
+
+// function debounceFn(callingFn, delay) {
+//     const myThis = this;
+//     let timerId = 0;
+//     return function (...args) {
+//         clearTimeout(timerId);
+
+//         timerId = setTimeout(() => {
+//             callingFn.apply(myThis, args);
+//         }, delay);
+//     };
+// }
+
+// function throttlingFn(callingFn, delay) {
+//     const myThis = this;
+//     let isWaiting = false;
+
+//     return function (...args) {
+//         if (!isWaiting) {
+//             callingFn.apply(myThis, args);
+//             isWaiting = true;
+//         }
+
+//         timerId = setTimeout(() => {
+//             isWaiting = false;
+//         }, delay);
+//     };
+// }
+
+// sum(10)(20)(30)() = 60
+
+// function sum(a){
+//     return function(b){
+//         if(b){
+//             return sum(a + b);
+//         }
+//         return a;
+//     };
+// };
+
+// function sum(a){
+//     let sum = a;
+
+//     return function(b){
+//         if(b){
+//             sum += b;
+//             return sum;
+//         }
+//         return sum;
+//     }
+// }
+
+

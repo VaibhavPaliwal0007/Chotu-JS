@@ -30,3 +30,38 @@
     display: flex;
 }
 
+.heading{
+    font-size: 30px;
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.scam{
+    display: block;
+}
+
+.modal{
+    color: #333;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 60px;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 9999;
+}
+
+.modal-content{
+    width: 400px;
+    height: 200px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    position: relative;
+}

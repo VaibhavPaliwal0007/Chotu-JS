@@ -100,7 +100,9 @@ function bindEvents() {
         }
 
         if (count >= 5 && isOver()) {
-            alert(`${winner} wins, ${loser} gandMara`)
+            // alert(`${winner} wins, ${loser} gandMara`)
+            document.querySelector('.modal').style.display = 'block';
+            document.querySelector('.winner').innerText = `${winner} wins, ${loser} gandMara`;
             gameReset();
             return;
         }
@@ -113,6 +115,8 @@ function bindEvents() {
         players[1].innerText = credentials[1];
 
         document.querySelector(".form").style.display = "none";
+        document.querySelector('.heading.scam').style.display = "none";
+
         const squares = document.querySelectorAll(".square");
 
         for(let square of squares){
