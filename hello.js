@@ -246,7 +246,7 @@ console.log(flatten(data));
 console.log(calculator(10).add(15).sub(10).mult(4).divide(10).result());
 */
 
-
+/*
 Function.prototype.myBind = function(...args){
     const myThis = this;
     const parameters = args.slice(1);
@@ -264,3 +264,16 @@ const person = { firstName: "Vaibhav", secondName: "Paliwal" };
 const boundFn = printName.myBind(person, "Hello", "World");
 
 console.log(boundFn());
+*/
+
+Array.prototype.myMap = function (callback) {
+    const result = [];
+  
+    for (let idx = 0; idx < this.length; idx++) {
+      result.push(callback(this[i], i, this));
+    }
+  
+    return result;
+  };
+  
+  const arr = [1, 2, 3, 4, 5];
