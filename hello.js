@@ -266,7 +266,10 @@ const boundFn = printName.myBind(person, "Hello", "World");
 console.log(boundFn());
 */
 
-Array.prototype.myMap = function (callback) {
+//Write a polyfill of myMap
+
+/*
+Array.prototype.myMap = function (callback, this) {
     const result = [];
   
     for (let idx = 0; idx < this.length; idx++) {
@@ -274,6 +277,24 @@ Array.prototype.myMap = function (callback) {
     }
   
     return result;
-  };
-  
-  const arr = [1, 2, 3, 4, 5];
+};
+*/
+
+//write a polyfill of reduce
+
+/*
+Array.prototype.myReduce = function(callback, initialValue){
+    let accumulator = initialValue;
+    let startIdx = accumulator ? 0 : 1;
+
+    for(let i = startIdx; i < this.length; i++){
+        if(!accumulator){
+            accumulator = this[i];
+        } else {
+            accumulator = callback(accumulator, this[i], i, this);
+        }
+    }
+
+    return accumulator;
+}
+*/

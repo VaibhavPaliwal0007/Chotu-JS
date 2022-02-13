@@ -1,11 +1,18 @@
-Array.prototype.myMap = function (callback) {
-  const result = [];
+//write a polyfill of reduce
 
-  for (let idx = 0; idx < this.length; idx++) {
-    result.push(callback(this[i], i, this));
-  }
+/*
+Array.prototype.myReduce = function(callback, initialValue){
+    let accumulator = initialValue;
+    let startIdx = accumulator ? 0 : 1;
 
-  return result;
-};
+    for(let i = startIdx; i < this.length; i++){
+        if(!accumulator){
+            accumulator = this[i];
+        } else {
+            accumulator = callback(accumulator, this[i], i, this);
+        }
+    }
 
-const arr = [1, 2, 3, 4, 5];
+    return accumulator;
+}
+*/
