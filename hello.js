@@ -266,7 +266,7 @@ const boundFn = printName.myBind(person, "Hello", "World");
 console.log(boundFn());
 */
 
-//Write a polyfill of myMap
+//polyfill of myMap
 
 /*
 Array.prototype.myMap = function (callback, this) {
@@ -280,7 +280,7 @@ Array.prototype.myMap = function (callback, this) {
 };
 */
 
-//write a polyfill of reduce
+// polyfill of reduce
 
 /*
 Array.prototype.myReduce = function(callback, initialValue){
@@ -296,5 +296,24 @@ Array.prototype.myReduce = function(callback, initialValue){
     }
 
     return accumulator;
+}
+*/
+
+//polyfill of group by
+
+/*
+function groupBy(array, callback){
+    const result = {};
+
+    array.forEach(element => {
+        const key = callback(element);
+        if(!result[key]){
+            result[key] = [];
+        }
+
+        result[key].push(element);
+    });
+
+    return result;
 }
 */
