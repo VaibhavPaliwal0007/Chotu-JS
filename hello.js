@@ -269,15 +269,15 @@ console.log(boundFn());
 //polyfill of myMap
 
 /*
-Array.prototype.myMap = function (callback, this) {
-    const result = [];
-  
-    for (let idx = 0; idx < this.length; idx++) {
-      result.push(callback(this[i], i, this));
+Array.prototype.myMap = function (callback, referThis) {
+    const arr = [];
+
+    for(let idx = 0; idx < this.length; idx++){
+        arr.push(callback.call(referThis, this[idx], idx, this));
     }
-  
-    return result;
-};
+
+    return arr;
+}
 */
 
 // polyfill of reduce
