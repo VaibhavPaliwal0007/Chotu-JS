@@ -147,7 +147,7 @@ function myDOM() {
 };
 */
 
-// sum(10)(320)(40)() 
+// sum(10)(320)(40)()
 
 /*
 function sum(a){
@@ -160,7 +160,7 @@ function sum(a){
 };
 */
 
-// debouncing and de throttling 
+// debouncing and de throttling
 
 /* 
 
@@ -207,7 +207,6 @@ const throttle = throttleFn(callbackFn, 400);
 document.querySelector('debouncing').addEventListener('keyup', debounce);  //automatically pass hojaege
 document.querySelector('throttling').addEventListener('keyup', throttle);
 */
-
 
 //flatten this object into a single level object
 
@@ -317,3 +316,34 @@ function groupBy(array, callback){
     return result;
 }
 */
+
+// make a pollyfill of forEach
+
+/*
+    Array.prototype.myForEach = function(callback, myThis){
+        if(!myThis){
+            myThis = this;
+        }
+
+        for(let idx = 0; idx < this.length; idx++){
+            callback.call(myThis, this[idx], idx, this);
+        }
+    }
+*/
+
+let obj = {
+    name: "Jack",
+};
+
+let myFunc = function (id, city) {
+    console.log(`${this.name}, ${id}, ${city}`);
+};
+
+Function.prototype.myBind = function (newThis, ...args) {
+    newThis._this = this;
+
+    return () => {
+        return newThis._this(...args);
+    };
+};
+//obj ke andar hi my func bnadia
